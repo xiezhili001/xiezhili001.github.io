@@ -91,3 +91,21 @@ body {
 body, html {
 	height: 100%;
 }
+div::-webkit-scrollbar {
+	width: 6px;
+	height: 4px;
+}
+div::-webkit-scrollbar-track {
+	background: transparent;
+	border-radius: 2px;
+}
+div::-webkit-scrollbar-thumb {
+	background: #aaa;
+	border-radius: 2px;
+}
+div::-webkit-scrollbar-thumb:hover {
+	background: #747474;
+}
+div::-webkit-scrollbar-corner {
+	background: #f6f6f6;
+}

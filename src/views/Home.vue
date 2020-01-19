@@ -159,7 +159,7 @@ export default {
     flex-direction: column;
     .mainContent {
       flex: 1;
-      padding: 25px;
+      padding: 0;
       overflow: auto;
     }
     .el-tag {

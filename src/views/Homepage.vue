@@ -18,17 +18,29 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="8" class="animated fadeInDown">
+      <el-col :span="8" class="animated fadeInDown flex">
         <el-card shadow="hover">
           <div slot="header" class="clearfix">
             <span>待办</span>
-            <el-date-picker v-model="today" type="date" placeholder="选择日期" size="mini" value-format="yyyy-MM-dd" :clearable="false"></el-date-picker>
+            <el-date-picker
+              v-model="today"
+              type="date"
+              placeholder="选择日期"
+              size="mini"
+              value-format="yyyy-MM-dd"
+              :clearable="false"
+            ></el-date-picker>
           </div>
           <div style="color: #606266;">暂无</div>
         </el-card>
       </el-col>
-      <el-col :span="8" class="animated fadeInDown">
-        <el-card shadow="hover"></el-card>
+      <el-col :span="8" class="animated fadeInDown flex map">
+        <el-card shadow="hover">
+          <div slot="header" class="clearfix">
+            <span>我的位置</span>
+          </div>
+          <div style="color: #606266;" id="allmap"></div>
+        </el-card>
       </el-col>
     </div>
   </el-col>
@@ -60,8 +72,26 @@ export default {
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578735787672&di=df5754458009870b4b3f9c50a3c774b7&imgtype=0&src=http%3A%2F%2Fwww.faxingtupian.com%2Fp%2Fallimg%2F150110%2F1-150110110440.jpg",
         "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=770484569,2221827162&fm=26&gp=0.jpg"
       ],
-      today: new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()
+      today:
+        new Date().getFullYear() +
+        "-" +
+        (new Date().getMonth() + 1) +
+        "-" +
+        new Date().getDate()
     };
+  },
+  mounted() {
+    var map = new BMap.Map("allmap");
+    map.enableScrollWheelZoom(true);
+    var point = new BMap.Point(116.331398, 39.897445);
+    map.centerAndZoom(point, 12);
+
+    function myFun(result) {
+      var cityName = result.name;
+      map.setCenter(cityName);
+    }
+    var myCity = new BMap.LocalCity();
+    myCity.get(myFun);
   }
 };
 </script>
@@ -70,12 +100,24 @@ export default {
 @import "../static/css/color.scss";
 .zl-Homepage {
   height: 100%;
+  padding: 25px;
+  #allmap {
+    height: 100%;
+  }
+  .map .el-card__body {
+    padding: 0;
+  }
+  .flex .el-card {
+    display: flex;
+    flex-direction: column;
+  }
   .el-col-8 {
     width: 30%;
     margin-right: 5%;
     animation-fill-mode: none;
     height: 345px;
     background: #fff;
+    border-radius: 4px;
     .text {
       font-size: 14px;
     }
@@ -126,6 +168,9 @@ export default {
   .el-card__header {
     font-size: 16px;
     padding: 14px 20px;
+  }
+  .el-card__body {
+    flex: 1;
   }
 }
 </style>

@@ -6,7 +6,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   // 状态： 放置整个项目中所有能够全局共用的状态。
   state: {
-    menuSwitch: false
+    menuSwitch: true
   },
   // 类似计算属性
   getters: {
