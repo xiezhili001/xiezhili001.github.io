@@ -1,16 +1,84 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -19,93 +87,138 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	box-sizing: border-box;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
-ol, ul {
+
+ol,
+ul {
 	list-style: none;
 }
-blockquote, q {
+
+blockquote,
+q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-em,i {
-	font-style:normal;
+
+em,
+i {
+	font-style: normal;
 }
+
 li {
-	list-style:none;
+	list-style: none;
 }
+
 img {
-	border:0;
-	vertical-align:middle;
+	border: 0;
+	vertical-align: middle;
 }
+
 button {
-	cursor:pointer;
+	cursor: pointer;
 }
+
 a {
-	color:#050505;
-	text-decoration:none;
+	color: #050505;
+	text-decoration: none;
 }
+
 a:hover {
-	color:#c81623;
+	color: #c81623;
 }
-button,input {
-	font-family:Microsoft YaHei,tahoma,arial,Hiragino Sans GB,\\5b8b\4f53,sans-serif;
+
+button,
+input {
+	font-family: Microsoft YaHei, tahoma, arial, Hiragino Sans GB, \\5b8b\4f53, sans-serif;
 }
+
 body {
-	-webkit-font-smoothing:antialiased;
-	background-color:#fff;
-	font:12px/1.5 Microsoft YaHei,tahoma,arial,Hiragino Sans GB,\\5b8b\4f53,sans-serif;
-	color:#666;
+	-webkit-font-smoothing: antialiased;
+	background-color: #fff;
+	font: 12px/1.5 Microsoft YaHei, tahoma, arial, Hiragino Sans GB, \\5b8b\4f53, sans-serif;
+	color: #666;
 }
-.hide,.none {
-	display:none;
+
+.hide,
+.none {
+	display: none;
 }
+
 .clearfix:after {
-	visibility:hidden;
-	clear:both;
-	display:block;
-	content:".";
-	height:0;
+	visibility: hidden;
+	clear: both;
+	display: block;
+	content: ".";
+	height: 0;
 }
+
 .clearfix {
-	*zoom:1;
+	*zoom: 1;
 }
+
 .w {
-	width:1200px;
-	margin:auto;
+	width: 1200px;
+	margin: auto;
 }
-body, html {
+
+body,
+html {
 	height: 100%;
 }
+
 div::-webkit-scrollbar {
 	width: 6px;
 	height: 4px;
 }
+
 div::-webkit-scrollbar-track {
 	background: transparent;
 	border-radius: 2px;
 }
+
 div::-webkit-scrollbar-thumb {
 	background: #aaa;
 	border-radius: 2px;
 }
+
 div::-webkit-scrollbar-thumb:hover {
 	background: #747474;
 }
+
 div::-webkit-scrollbar-corner {
 	background: #f6f6f6;
+}
+
+.markdown-body li {
+	list-style: initial;
 }

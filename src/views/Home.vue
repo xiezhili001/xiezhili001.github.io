@@ -165,7 +165,6 @@ export default {
     .el-tag {
       margin-right: 3px;
       cursor: context-menu;
-      transition: all 0.3s ease-in;
     }
     .el-tag.el-tag--info .el-tag__close:hover {
       padding-top: 1px;

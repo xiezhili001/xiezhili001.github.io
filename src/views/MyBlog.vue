@@ -25,7 +25,6 @@
           </div>
         </div>
         <div class="blogdetail markdown-body" v-show="!blogListShow">
-          <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
           <div data-v-f49bc018 class="v-note-read-content">
             <blockquote>
               <p>js 运行的顺序 同步→异步（微任务→宏任务）</p>
@@ -150,7 +149,6 @@ export default {
   }
   .el-tabs__nav-scroll {
     width: 120px;
-    background: #fff;
   }
   .el-tabs__content {
     overflow: auto;

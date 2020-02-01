@@ -21,7 +21,7 @@
       <el-col :span="8" class="animated fadeInDown flex">
         <el-card shadow="hover">
           <div slot="header" class="clearfix">
-            <span>待办</span>
+            <span>日历/代办</span>
             <el-date-picker
               v-model="today"
               type="date"
@@ -31,7 +31,12 @@
               :clearable="false"
             ></el-date-picker>
           </div>
-          <div style="color: #606266;">暂无</div>
+          <div class="dataContent" ref="landIn">
+            犬吠水声中，桃花带露浓。
+            树深时见鹿，溪午不闻钟。
+            野竹分青霭，飞泉挂碧峰。
+            无人知所去，愁倚两三松。
+          </div>
         </el-card>
       </el-col>
       <el-col :span="8" class="animated fadeInDown flex map">
@@ -81,12 +86,23 @@ export default {
     };
   },
   mounted() {
+    let landInText = this.$refs.landIn;
+    let letters = landInText.textContent.split("");
+    landInText.textContent = "";
+    letters.forEach((letter, i) => {
+      let span = document.createElement("span");
+      span.textContent = letter;
+      span.style.animationDelay = `${i * 0.05}s`;
+      landInText.append(span);
+    });
+
     var map = new BMap.Map("allmap");
     map.enableScrollWheelZoom(true);
     var point = new BMap.Point(116.331398, 39.897445);
     map.centerAndZoom(point, 12);
 
     function myFun(result) {
+      console.log(result);
       var cityName = result.name;
       map.setCenter(cityName);
     }
@@ -103,6 +119,28 @@ export default {
   padding: 25px;
   #allmap {
     height: 100%;
+  }
+  @keyframes landIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20%);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .dataContent {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .dataContent span {
+    color: #606266;
+    font-family: Lora, serif;
+    font-weight: 700;
+    font-size: 14px;
+    animation: landIn 0.8s ease-out both;
   }
   .map .el-card__body {
     padding: 0;
