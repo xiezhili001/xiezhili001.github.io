@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import qs from 'qs'
 
 // 创建一个 axios 的实例
 const instance = axios.create({
@@ -10,7 +10,11 @@ const instance = axios.create({
 // 处理请求拦截
 instance.interceptors.request.use(
   config => {
+    if (config.method == "post") {
+      config.data = qs.stringify(config.data)
+    }
     console.log(config);
+
     return config
   },
   error => {

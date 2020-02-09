@@ -6,6 +6,10 @@ Vue.use(Router);
 export default new Router({
   // base: process.env.BASE_URL,
   routes: [{
+    path: '/login',
+    component: () => import('./views/Login.vue'),
+  },
+    {
       path: '/',
       component: () => import('./views/Home.vue'),
       children: [{
@@ -21,7 +25,8 @@ export default new Router({
           name: 'myBlog',
           component: () => import('./views/MyBlog.vue'),
           meta: {
-            word: '我的博客'
+            word: '我的博客',
+            keepAlive: true
           }
         },
         {
@@ -29,7 +34,8 @@ export default new Router({
           name: 'editBlog',
           component: () => import('./views/EditBlog.vue'),
           meta: {
-            word: '写博客'
+            word: '写博客',
+            keepAlive: true
           }
         },
         {
@@ -37,7 +43,8 @@ export default new Router({
           name: 'myAlbum',
           component: () => import('./views/MyAlbum.vue'),
           meta: {
-            word: '我的相册'
+            word: '我的相册',
+            keepAlive: true
           }
         },
         {
@@ -48,7 +55,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/homepage'
+      redirect: '/login'
     }
   ]
 });

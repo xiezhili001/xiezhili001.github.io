@@ -4,6 +4,8 @@ import router from "./router";
 import store from "./store";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
+import axios from './static/js/axios'
+Vue.prototype.$axios = axios
 Vue.use(ElementUI, {
   size: 'small'
 });
@@ -17,7 +19,7 @@ new Vue({
 
 // 封装方法
 Object.defineProperty(Vue.prototype, '$messageTips', {
-  value: function (mes,type='info',duration=1500) {
+  value: function (mes, type = 'info', duration = 1500) {
     this.$message({
       message: mes,
       type: type,

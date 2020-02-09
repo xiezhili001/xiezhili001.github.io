@@ -9,17 +9,10 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
         size="mini"
-        @change="imgFilter"
+        @change="imgFilter('reset')"
         value-format="yyyy/MM/dd"
       ></el-date-picker>&nbsp;&nbsp;分类：
-      <el-select
-        v-model="area"
-        multiple
-        placeholder="全部"
-        size="mini"
-        collapse-tags
-        @change="imgFilter"
-      >
+      <el-select v-model="classify" placeholder="全部" size="mini" @change="imgFilter('reset')">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -31,11 +24,11 @@
     <div class="infinite-list-wrapper" style="overflow:auto">
       <ul class="list" v-infinite-scroll="imgFilter" infinite-scroll-disabled="disabled">
         <el-card class="box-card list-item" v-for="(item,index) in imgList" :key="index">
-          <img :src="item" alt />
+          <img :src="item.url" alt />
         </el-card>
       </ul>
       <p v-if="loading" style="text-align: center">加载中...</p>
-      <p v-if="noMore" style="text-align: center">没有更多了</p>
+      <p v-if="noMore" style="text-align: center">{{noMoreData}}</p>
     </div>
   </div>
 </template>
@@ -45,7 +38,7 @@ export default {
   data() {
     return {
       date: "",
-      area: "",
+      classify: "",
       options: [
         {
           value: 1,
@@ -56,17 +49,12 @@ export default {
           label: "大学"
         }
       ],
-      imgList: [
-        "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-        "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-        "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
-        "https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg",
-        "https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg",
-        "https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg",
-        "https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg"
-      ],
+      imgList: [],
       loading: false,
-      noMore: false
+      noMore: true,
+      pageNum: 0,
+      pageSize: 10,
+      noMoreData: "没有数据"
     };
   },
   computed: {
@@ -75,18 +63,53 @@ export default {
     }
   },
   methods: {
-    imgFilter() {
-      this.loading = true;
-      console.log(1);
+    imgFilter(reset) {
+      if ((reset == "reset")) {
+        this.noMoreData = "没有数据"
+        this.imgList = [];
+        this.pageNum = 1;
+      } else {
+        this.pageNum += 1;
+        this.noMore = false;
+        this.loading = true;
+      }
+      var startTime;
+      var endTime;
       if (this.date) {
-        let startTime = new Date(this.date[0]).getTime();
-        let endTime = new Date(this.date[1]).getTime();
+        startTime = new Date(this.date[0]).getTime();
+        endTime = new Date(this.date[1]).getTime();
         console.log(startTime, endTime);
       }
+      this.$axios
+        .get("/api/album/list", {
+          params: {
+            pageNum: this.pageNum,
+            pageSize: this.pageSize,
+            startTime: startTime,
+            endTime: endTime,
+            classify: this.classify
+          }
+        })
+        .then(res => {
+          this.imgList = this.imgList.concat(res.data.album);
+          this.loading = false;
+          var total = this.pageNum * this.pageSize;
+          if (res.data.total == 0) {
+            return;
+          }
+          if (res.data.total <= total) {
+            this.noMore = true;
+            this.noMoreData = "没有更多了";
+            return;
+          }
+          this.noMore = false;
+        });
     }
   },
   components: {},
-  mounted() {}
+  created() {
+    this.imgFilter();
+  }
 };
 </script>
 

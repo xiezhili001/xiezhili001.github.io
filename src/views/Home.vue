@@ -56,7 +56,10 @@
             >{{item.name}}</el-tag>
           </header>
           <main class="mainContent">
-            <router-view></router-view>
+            <keep-alive>
+              <router-view v-if="$route.meta.keepAlive"></router-view>
+            </keep-alive>
+            <router-view v-if="!$route.meta.keepAlive"></router-view>
           </main>
         </el-main>
       </el-container>
@@ -136,12 +139,12 @@ export default {
   methods: {
     //路由控制
     changeRouter(router) {
-      this.$router.push({name:router})
+      this.$router.push({ name: router });
     },
-    closeRouter(item,index) {
-      this.tags.splice(this.tags.indexOf(item), 1)
-      if(item.router==this.$route.path.replace("/", "")) {
-        this.$router.push({name:this.tags[index-1].router})
+    closeRouter(item, index) {
+      this.tags.splice(this.tags.indexOf(item), 1);
+      if (item.router == this.$route.path.replace("/", "")) {
+        this.$router.push({ name: this.tags[index - 1].router });
       }
     }
   }
