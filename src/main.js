@@ -19,7 +19,7 @@ new Vue({
 
 // 封装方法
 Object.defineProperty(Vue.prototype, '$messageTips', {
-  value: function (mes, type = 'info', duration = 1500) {
+  value: function (mes, type = 'warning', duration = 1500) {
     this.$message({
       message: mes,
       type: type,

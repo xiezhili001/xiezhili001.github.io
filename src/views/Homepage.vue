@@ -96,18 +96,18 @@ export default {
       landInText.append(span);
     });
 
-    var map = new BMap.Map("allmap");
-    map.enableScrollWheelZoom(true);
-    var point = new BMap.Point(116.331398, 39.897445);
-    map.centerAndZoom(point, 12);
+    // var map = new BMap.Map("allmap");
+    // map.enableScrollWheelZoom(true);
+    // var point = new BMap.Point(116.331398, 39.897445);
+    // map.centerAndZoom(point, 12);
 
-    function myFun(result) {
-      console.log(result);
-      var cityName = result.name;
-      map.setCenter(cityName);
-    }
-    var myCity = new BMap.LocalCity();
-    myCity.get(myFun);
+    // function myFun(result) {
+    //   console.log(result);
+    //   var cityName = result.name;
+    //   map.setCenter(cityName);
+    // }
+    // var myCity = new BMap.LocalCity();
+    // myCity.get(myFun);
   }
 };
 </script>
