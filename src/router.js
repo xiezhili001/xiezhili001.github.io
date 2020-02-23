@@ -48,6 +48,15 @@ export default new Router({
           }
         },
         {
+          path: '/chatRoom',
+          name: 'chatRoom',
+          component: () => import('./views/chatRoom.vue'),
+          meta: {
+            word: '聊天室',
+            keepAlive: true
+          }
+        },
+        {
           path: '*',
           redirect: '/homepage'
         }

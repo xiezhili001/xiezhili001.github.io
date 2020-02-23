@@ -107,6 +107,17 @@ export default {
               title: "我的相册"
             }
           ]
+        },
+        {
+          icon: "el-icon-s-cooperation",
+          index: "4",
+          title: "其他",
+          subs: [
+            {
+              index: "chatRoom",
+              title: "聊天室"
+            }
+          ]
         }
       ],
       tags: [{ name: "首页", router: "homepage" }]
