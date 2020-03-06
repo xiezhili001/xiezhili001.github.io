@@ -118,6 +118,21 @@ export default {
               title: "聊天室"
             }
           ]
+        },
+        {
+          icon: "el-icon-s-tools",
+          index: "5",
+          title: "设置",
+          subs: [
+            {
+              index: "generalSettings",
+              title: "通用设置"
+            },
+            {
+              index: "userManage",
+              title: "用户管理"
+            }
+          ]
         }
       ],
       tags: [{ name: "首页", router: "homepage" }]

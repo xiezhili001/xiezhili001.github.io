@@ -57,6 +57,24 @@ export default new Router({
           }
         },
         {
+          path: '/generalSettings',
+          name: 'generalSettings',
+          component: () => import('./views/generalSettings.vue'),
+          meta: {
+            word: '通用设置',
+            keepAlive: false
+          }
+        },
+        {
+          path: '/userManage',
+          name: 'userManage',
+          component: () => import('./views/userManage.vue'),
+          meta: {
+            word: '用户管理',
+            keepAlive: false
+          }
+        },
+        {
           path: '*',
           redirect: '/homepage'
         }

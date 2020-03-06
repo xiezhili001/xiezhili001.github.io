@@ -1,5 +1,51 @@
 <template>
   <div class="zl-MyAlbum">
+    <el-dialog title="上传文件（base64）" :visible.sync="upload64" width="30%" center>
+      <el-form
+        :model="upload64Form"
+        size="mini"
+        class="demo-form-inline demo-ruleForm"
+        ref="transTdForm"
+      >
+        <el-form-item label="分类：" label-width="108px">
+          <el-select v-model="upload64Form.classify" placeholder="请选择" size="mini">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="upload64 = false">取 消</el-button>
+        <el-button type="primary" @click="upload64Submit">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog title="上传文件（form）" :visible.sync="uploadData" width="30%" center>
+      <el-form
+        :model="upload64Form"
+        size="mini"
+        class="demo-form-inline demo-ruleForm"
+        ref="transTdForm"
+      >
+        <el-form-item label="分类：" label-width="108px">
+          <el-select v-model="uploadDataForm.classify" placeholder="请选择" size="mini">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="uploadData = false">取 消</el-button>
+        <el-button type="primary" @click="uploadDataSubmit">确 定</el-button>
+      </span>
+    </el-dialog>
     <div class="block" style="margin-bottom:8px">
       时间：
       <el-date-picker
@@ -20,6 +66,10 @@
           :value="item.value"
         ></el-option>
       </el-select>
+      <div class="fr">
+        <el-button type="primary" @click="upload64=true">上传文件（base64）</el-button>
+        <el-button type="primary" @click="uploadData=true">上传文件（form）</el-button>
+      </div>
     </div>
     <div class="infinite-list-wrapper" style="overflow:auto">
       <ul class="list" v-infinite-scroll="imgFilter" infinite-scroll-disabled="disabled">
@@ -37,6 +87,14 @@ export default {
   name: "MyAlbum",
   data() {
     return {
+      upload64: false,
+      upload64Form: {
+        classify: ""
+      },
+      uploadData: false,
+      uploadDataForm: {
+        classify: ""
+      },
       date: "",
       classify: "",
       options: [
@@ -63,9 +121,15 @@ export default {
     }
   },
   methods: {
+    upload64Submit() {
+
+    },
+    uploadDataSubmit() {
+
+    },
     imgFilter(reset) {
-      if ((reset == "reset")) {
-        this.noMoreData = "没有数据"
+      if (reset == "reset") {
+        this.noMoreData = "没有数据";
         this.imgList = [];
         this.pageNum = 1;
       } else {
