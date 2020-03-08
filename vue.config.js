@@ -1,8 +1,8 @@
 module.exports = {
   // 基本路径
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/blog'
-    : '/',
+  publicPath: process.env.NODE_ENV === 'production' ?
+    '/blog' :
+    '/',
   // 输出文件目录
   outputDir: 'blog', // 默认dist
   // 用于嵌套生成的静态资产（js,css,img,fonts）目录
@@ -58,17 +58,17 @@ module.exports = {
     open: true, //配置自动启动浏览器
     // proxy: 'http://localhost:4000' // 配置跨域处理,只有一个代理
     proxy: {
-        '/api': {
-            target: 'http://localhost:3000',
-            ws: true,
-            changeOrigin: true
-        }
-    },  // 配置多个代理
-},
+      '/api': {
+        target: 'http://localhost:3000',
+        ws: true,
+        changeOrigin: true
+      },
+    }, // 配置多个代理
+  },
   // PWA 插件相关配置
   pwa: {},
   // 第三方插件配置
   pluginOptions: {
-  // ...
+    // ...
   }
 }

@@ -53,7 +53,7 @@ export default new Router({
           component: () => import('./views/chatRoom.vue'),
           meta: {
             word: '聊天室',
-            keepAlive: true
+            keepAlive: false
           }
         },
         {

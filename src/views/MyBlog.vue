@@ -76,7 +76,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../static/css/color.scss";
 .zl-MyBlog {
   height: 100%;
   .el-tabs--left {

@@ -95,7 +95,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../static/css/color.scss";
 .zl-EditBlog {
   height: 100%;
   padding: 25px;

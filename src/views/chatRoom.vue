@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "chatRoom",
   data() {
@@ -34,12 +35,20 @@ export default {
   },
   components: {},
   methods: {},
-  created() {}
+  created() {
+
+  },
+  mounted() {
+    var client = io("localhost:3000");
+    client.send("85748");
+    client.on("message", function(msg) {
+      console.log(msg);
+    });
+  }
 };
 </script>
 
 <style lang="scss">
-@import "../static/css/color.scss";
 .zl-chatRoom {
   height: 100%;
   font-size: 16px;
