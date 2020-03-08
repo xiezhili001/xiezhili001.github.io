@@ -222,3 +222,7 @@ div::-webkit-scrollbar-corner {
 .markdown-body li {
 	list-style: initial;
 }
+.el-dialog {
+	min-width: 500px;
+	width: 50%!important;
+}
