@@ -2,47 +2,47 @@
   <div class="zl-chatRoom">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>84987878</span>
+        <span>{{$dateToString(new Date()).slice(0,11)}}</span>
       </div>
       <div class="content">
-        <div class="contentList flSpan">
+        <div class="contentList flSpan" v-for="(item,index) in content" :key="index">
           <div></div>
-          <span>gerwgrsdfseg</span>
+          <span>{{item}}</span>
         </div>
-        <div class="contentList frSpan">
+        <!-- <div class="contentList frSpan">
           <div></div>
           <span>gerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreerwgreg</span>
-        </div>
+        </div>-->
       </div>
       <div class="submitInput">
-        <textarea placeholder="请输入文字"></textarea>
-        <el-button class="set" size="mini">发送</el-button>
+        <textarea placeholder="请输入文字" v-model="mes"></textarea>
+        <el-button class="set" size="mini" @click="sendMes">发送</el-button>
       </div>
     </el-card>
   </div>
 </template>
 <script>
-
+let client = io("localhost:3000");
 export default {
   name: "chatRoom",
   data() {
     return {
-      blogListShow: true,
-      blogData: [],
-      currentBlog: 0,
-      active: ""
+      content: [],
+      mes: ""
     };
   },
   components: {},
-  methods: {},
-  created() {
-
+  methods: {
+    sendMes() {
+      client.send(this.mes);
+      this.mes = ''
+    }
   },
   mounted() {
-    var client = io("localhost:3000");
-    client.send("85748");
+    let self = this;
     client.on("message", function(msg) {
       console.log(msg);
+      self.content.push(msg);
     });
   }
 };

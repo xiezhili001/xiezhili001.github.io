@@ -1,31 +1,8 @@
 <template>
   <div class="zl-MyAlbum">
-    <el-dialog title="上传文件（base64）" :visible.sync="upload64" width="30%" center>
+    <el-dialog title="上传文件" :visible.sync="uploadData" width="30%" center>
       <el-form
-        :model="upload64Form"
-        size="mini"
-        class="demo-form-inline demo-ruleForm"
-        ref="transTdForm"
-      >
-        <el-form-item label="分类：" label-width="108px">
-          <el-select v-model="upload64Form.classify" placeholder="请选择" size="mini">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="upload64 = false">取 消</el-button>
-        <el-button type="primary" @click="upload64Submit">确 定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog title="上传文件（form）" :visible.sync="uploadData" width="30%" center>
-      <el-form
-        :model="upload64Form"
+        :model="uploadDataForm"
         size="mini"
         class="demo-form-inline demo-ruleForm"
         ref="transTdForm"
@@ -39,6 +16,18 @@
               :value="item.value"
             ></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="form上传：" label-width="108px">
+          <el-upload
+            class="upload-demo"
+            action="/api/album/upload"
+            :on-success="uploadSuccess"
+            :before-upload="uploadBefore"
+            accept="image/*"
+          >
+            <el-button size="mini" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传图片，且不超过5000kb</div>
+          </el-upload>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -66,10 +55,8 @@
           :value="item.value"
         ></el-option>
       </el-select>
-      <div class="fr">
-        <el-button type="primary" @click="upload64=true">上传文件（base64）</el-button>
-        <el-button type="primary" @click="uploadData=true">上传文件（form）</el-button>
-      </div>
+      <!-- <el-button type="primary" @click="upload64=true">上传文件（base64）</el-button> -->
+      <el-button type="primary" @click="uploadData=true" style="margin-left:10px" size="mini">上传文件</el-button>
     </div>
     <div class="infinite-list-wrapper" style="overflow:auto">
       <ul class="list" v-infinite-scroll="imgFilter" infinite-scroll-disabled="disabled">
@@ -87,13 +74,10 @@ export default {
   name: "MyAlbum",
   data() {
     return {
-      upload64: false,
-      upload64Form: {
-        classify: ""
-      },
       uploadData: false,
       uploadDataForm: {
-        classify: ""
+        classify: "",
+        url: ""
       },
       date: "",
       classify: "",
@@ -121,11 +105,34 @@ export default {
     }
   },
   methods: {
-    upload64Submit() {
-
-    },
     uploadDataSubmit() {
-
+      if (!this.uploadDataForm.classify) {
+        this.$messageTips("请选择分类");
+        return;
+      }
+      if (!this.uploadDataForm.url) {
+        this.$messageTips("请选择文件");
+        return;
+      }
+      this.$axios.post("/api/album/add", {
+          classify: this.uploadDataForm.classify,
+          url: this.uploadDataForm.url,
+      }).then(res=>{
+        this.uploadData = false
+        this.imgFilter('reset');
+      })
+    },
+    uploadSuccess(res) {
+      console.log(res);
+      this.uploadDataForm.url = res.data.path;
+    },
+    uploadBefore(file) {
+      console.log(file);
+      let limitMax = 5000 * 1024;
+      if (file.size > limitMax) {
+        this.$messageTips("大小超出限制");
+        return false;
+      }
     },
     imgFilter(reset) {
       if (reset == "reset") {
