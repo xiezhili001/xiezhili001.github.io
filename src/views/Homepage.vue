@@ -48,9 +48,17 @@
         </el-card>
       </el-col>
     </div>
+    <div class="clearfix" style="padding: 0 20px;margin-top:20px">
+      <el-col :span="24" class="animated fadeInDown flex">
+        <el-card shadow="hover">
+          <div id="echarts" style="height: 300px"></div>
+        </el-card>
+      </el-col>
+    </div>
   </el-col>
 </template>
 <script>
+import echarts from "echarts";
 export default {
   name: "Homepage",
   data() {
@@ -95,7 +103,36 @@ export default {
       span.style.animationDelay = `${i * 0.05}s`;
       landInText.append(span);
     });
-
+    var myChart = echarts.init(document.getElementById("echarts"));
+    // 绘制图表
+    myChart.setOption({
+      color: ["#3398DB"],
+      title: {
+        text: "进六个月访问量"
+      },
+      tooltip: {
+        trigger: "axis",
+        axisPointer: {
+          // 坐标轴指示器，坐标轴触发有效
+          type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      yAxis: [
+        {
+          type: "value"
+        }
+      ],
+      xAxis: {
+        data: ["1月", "12月", "3月", "4月", "5月", "6月"]
+      },
+      series: [
+        {
+          name: "次数",
+          type: "bar",
+          data: [125, 200, 361, 170, 784, 548]
+        }
+      ]
+    });
     // var map = new BMap.Map("allmap");
     // map.enableScrollWheelZoom(true);
     // var point = new BMap.Point(116.331398, 39.897445);
