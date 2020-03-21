@@ -90,10 +90,39 @@ export default {
         "-" +
         (new Date().getMonth() + 1) +
         "-" +
-        new Date().getDate()
+        new Date().getDate(),
+      option: {
+        color: ["#3398DB"],
+        title: {
+          text: "进六个月访问量"
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        yAxis: [
+          {
+            type: "value"
+          }
+        ],
+        xAxis: {
+          data: ["1月", "12月", "3月", "4月", "5月", "6月"]
+        },
+        series: [
+          {
+            name: "次数",
+            type: "bar",
+            data: [125, 200, 361, 170, 784, 548]
+          }
+        ]
+      }
     };
   },
   mounted() {
+    let self = this
     let landInText = this.$refs.landIn;
     let letters = landInText.textContent.split("");
     landInText.textContent = "";
@@ -105,34 +134,10 @@ export default {
     });
     var myChart = echarts.init(document.getElementById("echarts"));
     // 绘制图表
-    myChart.setOption({
-      color: ["#3398DB"],
-      title: {
-        text: "进六个月访问量"
-      },
-      tooltip: {
-        trigger: "axis",
-        axisPointer: {
-          // 坐标轴指示器，坐标轴触发有效
-          type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
-        }
-      },
-      yAxis: [
-        {
-          type: "value"
-        }
-      ],
-      xAxis: {
-        data: ["1月", "12月", "3月", "4月", "5月", "6月"]
-      },
-      series: [
-        {
-          name: "次数",
-          type: "bar",
-          data: [125, 200, 361, 170, 784, 548]
-        }
-      ]
-    });
+    myChart.setOption(this.option);
+    window.onresize = function() {
+      myChart.resize()
+    }
     // var map = new BMap.Map("allmap");
     // map.enableScrollWheelZoom(true);
     // var point = new BMap.Point(116.331398, 39.897445);

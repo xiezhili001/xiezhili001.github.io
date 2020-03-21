@@ -17,7 +17,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="form上传：" label-width="108px">
+        <el-form-item label="上传：" label-width="108px">
           <el-upload
             class="upload-demo"
             action="/api/album/upload"
@@ -114,20 +114,20 @@ export default {
         this.$messageTips("请选择文件");
         return;
       }
-      this.$axios.post("/api/album/add", {
+      this.$axios
+        .post("/api/album/add", {
           classify: this.uploadDataForm.classify,
-          url: this.uploadDataForm.url,
-      }).then(res=>{
-        this.uploadData = false
-        this.imgFilter('reset');
-      })
+          url: this.uploadDataForm.url
+        })
+        .then(res => {
+          this.uploadData = false;
+          this.imgFilter("reset");
+        });
     },
     uploadSuccess(res) {
-      console.log(res);
       this.uploadDataForm.url = res.data.path;
     },
     uploadBefore(file) {
-      console.log(file);
       let limitMax = 5000 * 1024;
       if (file.size > limitMax) {
         this.$messageTips("大小超出限制");

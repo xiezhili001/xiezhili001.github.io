@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "echarts": "^4.7.0",
+    "echarts-gl": "^1.1.1",
     "element-ui": "^2.13.0",
     "mavon-editor": "^2.7.6",
     "qs": "^6.9.1",

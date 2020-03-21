@@ -75,6 +75,15 @@ export default new Router({
           }
         },
         {
+          path: '/echarts',
+          name: 'echarts',
+          component: () => import('./views/echarts.vue'),
+          meta: {
+            word: 'echarts',
+            keepAlive: false
+          }
+        },
+        {
           path: '*',
           redirect: '/homepage'
         }

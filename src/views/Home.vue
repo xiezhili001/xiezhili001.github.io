@@ -105,7 +105,7 @@ export default {
             {
               index: "myAlbum",
               title: "我的相册"
-            }
+            },
           ]
         },
         {
@@ -116,7 +116,11 @@ export default {
             {
               index: "chatRoom",
               title: "聊天室"
-            }
+            },
+            {
+              index: "echarts",
+              title: "echarts"
+            },
           ]
         },
         {

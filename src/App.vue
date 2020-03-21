@@ -10,6 +10,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import './static/css/reset.css';
 @import '../src/static/css/color.scss';
 @import '../src/static/css/animate.min.css';
 </style>
