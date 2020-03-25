@@ -1,6 +1,5 @@
 import axios from 'axios'
 import qs from 'qs'
-
 // 创建一个 axios 的实例
 const instance = axios.create({
   timeout: 5000,
@@ -13,6 +12,7 @@ instance.interceptors.request.use(
     if (config.method == "post") {
       config.data = qs.stringify(config.data)
     }
+    config.headers.Token = localStorage.getItem('token')||''
     console.log(config);
 
     return config
@@ -25,6 +25,12 @@ instance.interceptors.request.use(
 // 处理响应拦截
 instance.interceptors.response.use(
   response => {
+    if(response.data.mes='token无效') {
+      vm.$messageTips(response.data.msg, "warning", 2000)
+      vm.$router.push({
+        name: "login"
+      });
+    }
     return response.data
   },
 

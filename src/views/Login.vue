@@ -38,6 +38,8 @@ export default {
             this.$router.push({
               name: "homepage"
             });
+            this.$user = res.data.user;
+            localStorage.setItem('token',res.data.token)
           } else {
             this.$messageTips(res.msg, "warning", 2000);
             this.load = false;

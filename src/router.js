@@ -6,9 +6,10 @@ Vue.use(Router);
 export default new Router({
   // base: process.env.BASE_URL,
   routes: [{
-    path: '/login',
-    component: () => import('./views/Login.vue'),
-  },
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Login.vue'),
+    },
     {
       path: '/',
       component: () => import('./views/Home.vue'),

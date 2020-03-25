@@ -122,6 +122,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this);
     let self = this
     let landInText = this.$refs.landIn;
     let letters = landInText.textContent.split("");
