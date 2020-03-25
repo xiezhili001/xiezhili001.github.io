@@ -25,7 +25,7 @@ instance.interceptors.request.use(
 // 处理响应拦截
 instance.interceptors.response.use(
   response => {
-    if(response.data.mes='token无效') {
+    if(response.data.msg=='token无效') {
       vm.$messageTips(response.data.msg, "warning", 2000)
       vm.$router.push({
         name: "login"
