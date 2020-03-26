@@ -1,4 +1,6 @@
-# fore-end(后端代码见back-end)
+# fore-end
+
+> blog前端代码，后端代码见back-end
 
 ## Project setup
 ```
@@ -7,6 +9,6 @@ yarn install
 
 ### Compiles and hot-reloads for development
 ```
-yarn run serve
+yarn serve
 ```
 
