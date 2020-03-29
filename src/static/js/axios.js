@@ -12,9 +12,8 @@ instance.interceptors.request.use(
     if (config.method == "post") {
       config.data = qs.stringify(config.data)
     }
-    config.headers.Token = localStorage.getItem('token')||''
+    config.headers.Token = localStorage.getItem('token') || ''
     console.log(config);
-
     return config
   },
   error => {
@@ -25,18 +24,19 @@ instance.interceptors.request.use(
 // 处理响应拦截
 instance.interceptors.response.use(
   response => {
-    if(response.data.msg=='token无效') {
-      vm.$messageTips(response.data.msg, "warning", 2000)
+    if (response.data.msg == 'token无效') {
+      vm.$messageTips(response.data.msg + '请重新登录', "warning", 2000)
       vm.$router.push({
         name: "login"
       });
+    } else if (response.data.code == 1) {
+      vm.$messageTips(response.data.msg, "warning", 2000)
     }
     return response.data
   },
 
   error => {
     console.log(error.response);
-
     return Promise.reject(error);
   }
 )

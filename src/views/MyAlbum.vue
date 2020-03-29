@@ -162,18 +162,20 @@ export default {
           }
         })
         .then(res => {
-          this.imgList = this.imgList.concat(res.data.album);
-          this.loading = false;
-          var total = this.pageNum * this.pageSize;
-          if (res.data.total == 0) {
-            return;
+          if (res.code == 0) {
+            this.imgList = this.imgList.concat(res.data.album);
+            this.loading = false;
+            var total = this.pageNum * this.pageSize;
+            if (res.data.total == 0) {
+              return;
+            }
+            if (res.data.total <= total) {
+              this.noMore = true;
+              this.noMoreData = "没有更多了";
+              return;
+            }
+            this.noMore = false;
           }
-          if (res.data.total <= total) {
-            this.noMore = true;
-            this.noMoreData = "没有更多了";
-            return;
-          }
-          this.noMore = false;
         });
     }
   },
@@ -193,8 +195,8 @@ export default {
   .infinite-list-wrapper {
     flex: 1;
     .list {
-      display: flex;
       flex-wrap: wrap;
+      display: inline-block;
       justify-content: center;
     }
     .el-card__body {
@@ -202,6 +204,7 @@ export default {
     }
     .list-item {
       width: 300px;
+      display: inline-block;
       height: 200px;
       margin-bottom: 10px;
       margin-right: 10px;

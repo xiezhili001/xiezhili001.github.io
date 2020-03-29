@@ -4,7 +4,7 @@
       <div class="header">用户登录</div>
       <div class="main">
         <el-input placeholder="请输入用户名" v-model="userName" clearable size="large"></el-input>
-        <el-input placeholder="请输入密码" v-model="password" show-password size="large"></el-input>
+        <el-input placeholder="请输入密码" v-model="password" show-password size="large" @keyup.enter.native="login"></el-input>
       </div>
       <div class="footer">
         <el-button type="primary" :loading="load" @click="login">{{ state }}</el-button>
@@ -41,7 +41,6 @@ export default {
             this.$user = res.data.user;
             localStorage.setItem('token',res.data.token)
           } else {
-            this.$messageTips(res.msg, "warning", 2000);
             this.load = false;
             this.state = "登录";
           }

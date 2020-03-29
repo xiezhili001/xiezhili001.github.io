@@ -210,6 +210,7 @@ export default {
     background: #fff;
     box-shadow: rgba(0, 0, 0, 0.1) 2px 0px 10px 1px;
     padding: 8px;
+    border-bottom: 1px solid #ededed;
   }
   .el-container {
     overflow: hidden;

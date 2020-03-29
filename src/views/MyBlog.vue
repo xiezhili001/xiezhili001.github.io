@@ -68,8 +68,10 @@ export default {
   },
   created() {
     this.$axios.get("/api/blog/list").then(res => {
-      console.log(res.data.blog);
-      this.blogData = res.data.blog;
+      if (res.code == 0) {
+        console.log(res.data.blog);
+        this.blogData = res.data.blog;
+      }
     });
   }
 };
@@ -77,9 +79,13 @@ export default {
 
 <style lang="scss">
 .zl-MyBlog {
+  padding-top: 10px;
   height: 100%;
   .el-tabs--left {
     height: 100% !important;
+  }
+  .el-tabs--left .el-tabs__header.is-left {
+    background: #fff;
   }
   a:hover {
     text-decoration: none;
@@ -121,7 +127,6 @@ export default {
     flex-direction: column;
   }
   .el-tab-pane {
-    padding-top: 10px;
     padding-right: 10px;
     display: block !important;
   }
