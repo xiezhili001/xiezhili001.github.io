@@ -3,7 +3,7 @@ import qs from 'qs'
 // 创建一个 axios 的实例
 const instance = axios.create({
   timeout: 5000,
-  baseURL: process.env.NODE_ENV === "development"?'':'http://129.28.151.93:3000/'
+  baseURL: process.env.NODE_ENV === "development"?'':''
 })
 console.log(process.env.NODE_ENV);
 // 处理请求拦截
