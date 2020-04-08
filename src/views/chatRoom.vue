@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-let client = io("localhost:3000");
+// let client = io("localhost:3000");
 export default {
   name: "chatRoom",
   data() {
@@ -39,11 +39,11 @@ export default {
     }
   },
   mounted() {
-    let self = this;
-    client.on("message", function(msg) {
-      console.log(msg);
-      self.content.push(msg);
-    });
+    // let self = this;
+    // client.on("message", function(msg) {
+    //   console.log(msg);
+    //   self.content.push(msg);
+    // });
   }
 };
 </script>
