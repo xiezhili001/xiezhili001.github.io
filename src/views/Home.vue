@@ -51,15 +51,22 @@
               :type="currentRouter==item.router?'':'info'"
               size="medium"
               class="menuListActive"
+              disable-transitions
               @click="changeRouter(item.router)"
+              @contextmenu.prevent.native="openMenu(item,$event)"
               @close="closeRouter(item,index)"
             >{{item.name}}</el-tag>
+            <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
+              <li @click="refreshSelectedTag(selectedTag)">刷新</li>
+              <li @click="closeSelectedTag(selectedTag)" v-show="selectedTag.router!='homepage'">关闭</li>
+              <li @click="closeOthersTags(selectedTag)">关闭其它</li>
+            </ul>
           </header>
           <main class="mainContent">
             <keep-alive>
-              <router-view v-if="$route.meta.keepAlive"></router-view>
+              <router-view v-if="$route.meta.keepAlive&&update"></router-view>
             </keep-alive>
-            <router-view v-if="!$route.meta.keepAlive"></router-view>
+            <router-view v-if="!$route.meta.keepAlive&&update"></router-view>
           </main>
         </el-main>
       </el-container>
@@ -105,7 +112,7 @@ export default {
             {
               index: "myAlbum",
               title: "我的相册"
-            },
+            }
           ]
         },
         {
@@ -120,7 +127,7 @@ export default {
             {
               index: "echarts",
               title: "echarts"
-            },
+            }
           ]
         },
         {
@@ -139,7 +146,12 @@ export default {
           ]
         }
       ],
-      tags: [{ name: "首页", router: "homepage" }]
+      tags: [{ name: "首页", router: "homepage" }],
+      visible: false,
+      top: 0,
+      left: 0,
+      selectedTag: {},
+      update: true
     };
   },
   computed: {
@@ -151,6 +163,13 @@ export default {
     }
   },
   watch: {
+    visible(value) {
+      if (value) {
+        document.body.addEventListener("click", this.closeMenu);
+      } else {
+        document.body.removeEventListener("click", this.closeMenu);
+      }
+    },
     $route: {
       handler(newValue, oldValue) {
         var flag = this.tags.some(item => {
@@ -175,6 +194,43 @@ export default {
       this.tags.splice(this.tags.indexOf(item), 1);
       if (item.router == this.$route.path.replace("/", "")) {
         this.$router.push({ name: this.tags[index - 1].router });
+      }
+    },
+    openMenu(item, e) {
+      const menuMinWidth = 80;
+      const offsetLeft = this.$el.getBoundingClientRect().left; // container margin left
+      const offsetWidth = this.$el.offsetWidth; // container width
+      const maxLeft = offsetWidth - menuMinWidth; // left boundary
+      const left = e.clientX - offsetLeft; // 15: margin right
+      if (left > maxLeft) {
+        this.left = maxLeft;
+      } else {
+        this.left = left;
+      }
+      this.top = e.clientY;
+      this.visible = true;
+      this.selectedTag = item;
+    },
+    closeMenu() {
+      this.visible = false;
+    },
+    refreshSelectedTag(item) {
+      this.update = false;
+      this.$nextTick(() => {
+        this.update = true;
+      });
+    },
+    closeSelectedTag(item) {
+      let index = this.tags.indexOf(item);
+      this.closeRouter(item, index);
+    },
+    closeOthersTags(item) {
+      this.tags = [{ name: "首页", router: "homepage" }];
+      if (item.router != "homepage") {
+        this.tags.push(item);
+      }
+      if (item.router != this.$route.path.replace("/", "")) {
+        this.$router.push({ name: item.router });
       }
     }
   }
@@ -238,6 +294,29 @@ export default {
   }
   .el-menu--collapse {
     height: 100%;
+  }
+  .contextmenu {
+    margin: 0;
+    background: #fff;
+    z-index: 3000;
+    position: absolute;
+    list-style-type: none;
+    padding: 5px 0;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .contextmenu li {
+    margin: 0;
+    padding: 7px 16px;
+    cursor: pointer;
+  }
+
+  .contextmenu li:hover {
+    background: #eee;
   }
 }
 </style>
